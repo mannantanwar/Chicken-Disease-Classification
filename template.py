@@ -1,16 +1,15 @@
-import os
-from pathlib import Path
-import logging
+import os 
+from pathlib import Path 
+import logging 
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
+logging.basicConfig(level= logging.INFO, format = '[%(asctime)s]: %(message)s:')
 
+project_name = "cnnClassifier"
 
-project_name = "Chicken-Disease-Classifier"
-
-list_of_files = [
-    ".github/workflows/.gitkeep",
+list_of_files= [
+    "github/workflows/.gitkeep", #gitkeep file has been stored kyuki we donot want to store empty folder
     f"src/{project_name}/__init__.py",
-    f"src/{project_name}/components/__init__.py",
+    f"src/{project_name}/components/__init__.py", #init file has been stored to make this a local package taaki khi se bhi import hojaye ye 
     f"src/{project_name}/utils/__init__.py",
     f"src/{project_name}/config/__init__.py",
     f"src/{project_name}/config/configuration.py",
@@ -23,25 +22,23 @@ list_of_files = [
     "requirements.txt",
     "setup.py",
     "research/trials.ipynb",
-    "templates/index.html",
+    "templates/index.html"
+    
 ]
 
-
 for filepath in list_of_files:
-    filepath = Path(filepath)
-    filedir, filename = os.path.split(filepath) #splits the filename form filedir
+    filepath = Path(filepath) #making this a windows path as window me \ use hota hia nand we have used / here 
+    filedir, filename = os.path.split(filepath)
 
+    if filedir!="" :
+        os.makedirs(filedir,exist_ok = True)
+        logging.info(f"Creating directory; {filedir} for file; {filename}")
 
-    if filedir !="":
-        os.makedirs(filedir, exist_ok=True)
-        logging.info(f"Creating directory; {filedir} for the file: {filename}")
-
-    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
-        with open(filepath, "w") as f: # if file exist nhi krti hogi  OR ya to uska context 0 hoga mtlb empty file 
-            #to new file bnadega 
-            pass
-            logging.info(f"Creating empty file: {filepath}")
-
-
+    if(not os.path.exists(filepath)) or (os.path.getsize(filepath)==0):
+        with open(filepath ,"w") as f:
+            pass 
+            logging.info(f"Creating empty file ; {filepath}")
     else:
-        logging.info(f"{filename} is already exists") #this will only execute when file exists and the has size>0
+        logging.info(f"{filepath} is already created ")
+
+
